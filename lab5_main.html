@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>jQuery 5 lab</title>
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="https://resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+  <link rel="stylesheet" href="style.css">
+
+  <script src="script.js"></script>
+  <script>
+  $( function() {
+    $( "#accordion" ).accordion({
+      collapsible: true
+    });
+    $( "#slider-range" ).slider({
+      range: true,
+      min: 0,
+      max: 500,
+      values: [ 75, 300 ],
+      slide: function( event, ui ) {
+        $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+      }
+    });
+    $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
+      " - $" + $( "#slider-range" ).slider( "values", 1 ) );
+    $( document ).tooltip();
+      
+    $('#example').okzoom({
+            width: 200,
+            height: 200,
+            border: "1px solid black",
+            shadow: "0 0 5px #000"
+        });     
+  } );
+
+  
+
+  $(document).ready(function() {
+        // Создаем две переменные с названиями месяцев и названиями дней.
+        var monthNames = [ "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь" ]; 
+        var dayNames= ["Воскресенье","Понедельник","Вторник","Среда","Четверг","Пятница","Суббота"]
+ 
+        // Создаем объект newDate()
+        var newDate = new Date();
+        // "Достаем" текущую дату из объекта Date
+        newDate.setDate(newDate.getDate());
+        // Получаем день недели, день, месяц и год
+        $('#Date').html(dayNames[newDate.getDay()] + " " + newDate.getDate() + ' ' + monthNames[newDate.getMonth()] + ' ' + newDate.getFullYear());
+ 
+        setInterval( function() {
+            // Создаем объект newDate() и показывает секунды
+            var seconds = new Date().getSeconds();
+            // Добавляем ноль в начало цифры, которые до 10
+            $("#sec").html(( seconds < 10 ? "0" : "" ) + seconds);
+        },1000);
+ 
+        setInterval( function() {
+            // Создаем объект newDate() и показывает минуты
+            var minutes = new Date().getMinutes();
+            // Добавляем ноль в начало цифры, которые до 10
+            $("#min").html(( minutes < 10 ? "0" : "" ) + minutes);
+        },1000);
+ 
+        setInterval( function() {
+            // Создаем объект newDate() и показывает часы
+            var hours = new Date().getHours();
+            // Добавляем ноль в начало цифры, которые до 10
+            $("#hours").html(( hours < 10 ? "0" : "" ) + hours);
+        }, 1000);
+      $('#example').okzoom({
+            width: 200,
+            height: 200,
+            border: "1px solid black",
+            shadow: "0 0 5px #000"
+        });
+      
+    });
+
+    window.onload = function () {
+    let c = {'USD':'78', 'EUR':'85.60', 'RUB':'1'}; // Устанавливаем курс валют
+
+    let val = document.getElementById('val'); // Получаем элемент ввода данных
+    let currency1 = document.getElementById('cur1'); // Получаем первый селект
+    let currency2 = document.getElementById('cur2'); // Получаем второй селект
+    let result = document.getElementsByClassName('convert_result')[0]; // Получаем поле куда будем писать результат
+    function summ() { // Делаем функцию
+        let z = 0;
+        if(currency1.value === currency2.value){ // Если оба значения в селектах равны
+            result.innerText = val.value; // То просто вписываем данные из поля ввода
+        } else {
+            if(currency1.value != 'RUB'){ // Если не равны рублю, то
+                z = val.value*c[currency1.value]; // Переводим сумму в рубли
+                result.innerHTML = Math.ceil((z/c[currency2.value])*100)/100; // Делим на курс и округляем до сотых
+            } else { // Если не равны
+                result.innerHTML = Math.ceil((val.value*c[currency2.value])*100)/100; // Умножаем на курс и округляем до сотых
+            }
+        }
+    }
+    val.oninput = function () { // При вводе данных в поле вызываем функцию.
+        summ();
+    };
+    currency1.onchange = function () { // При смене первого селекта вызываем функцию.
+        summ();
+    };
+    currency2.onchange = function () { // При смене второго селекта вызываем функцию.
+        summ();
+    }
+}
+
+
+
+
+  </script>
+
+</head> 
+<body>
+    <h1><center>Информация об артистах</center></h1>
+ 
+<div id="accordion">
+  <h3>Travis Scott</h3>
+  <div>
+    <p>Взрывная энергетика шоу Скотта и невообразимые спецэффекты с пол-оборота заводят толпу, но именно за это его любят фанаты. Поклонников своего творчества рэпер именует рейджерами (от английского rage — ярость).</p>
+    <img id="img" height="200" src="1.jpg" height="300" width="500">
+  </div>
+  <h3>Lil Uzi Vert</h3>
+  <div>
+    <p>Американский рэпер Саймир Вудс, больше известный под псевдонимом Lil Uzi Vert, является не только популярным исполнителем, но и автором собственных песен, которых с каждым годом становится в дискографии певца все больше.</p>
+    <img id="img" height="200" src="2.jpg" height="300" width="500">
+  </div>
+  <h3>Gunna</h3>
+  <div>
+    <p>Более известен как Gunna — американский рэпер. Наиболее известен благодаря его совместным композициям с Янг Тагом и Lil Baby, он подписан на лейбл Тага — YSL Records, а также 300 Entertainment и Atlantic Records. Его дебютный студийный альбом Drip or Drown 2 вышел 22 февраля 2019. Перечень треков: </p>
+    <ul>
+      <li>Drip Too Hard</li>
+      <li>Turks</li>
+      <li>Yosemite</li>
+    </ul>
+    <img id="img" height="200" src="3.jpg" height="300" width="500">
+  </div>
+  <h3>Offset</h3>
+  <div>
+    <p>Рэпер Offset – классический пример темнокожего «музыканта-плохиша», который имеет за плечами проблемы с законом, обвинения по нескольким уголовным статьям, заключение под стражу и громкие скандалы в личной жизни. Но все это практически не сказывается на его творчестве. Дебютный сольный альбом 2019-го с нетерпением ждала многомиллионная армия поклонников, а знаменитые коллеги не переставали приглашать к сотрудничеству. </p>
+    <img id="img" height="200" src="4.jpg" height="300" width="500">
+  </div>
+</div>
+    <p>
+  <label for="amount">Диапазон цен на билеты :</label>
+  <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;" title="Выберите диапазон цен на билеты">
+    </p>
+ 
+<div id="slider-range"></div><br><br>
+
+    <center><img id="example" height="200" src="concert.jpg" height="300" width="500"></center>  
+
+    <div class="clock">
+      <div id="Date"></div>
+      <ul>
+          <li id="hours"> </li>
+          <li id="point">:</li>
+          <li id="min"> </li>
+          <li id="point">:</li>
+          <li id="sec"> </li>
+      </ul>
+    </div>
+    
+    <h1>Google Weather Embed</h1>
+    <div class="google-weather-place">
+    <div class="google-weather-crop">
+    <iframe class="google-weather" src="https://www.google.com/search?igu=1&amp;q=weather">
+    </iframe>
+    </div>
+    </div>
+
+    
+    <div class="convert_block_item">
+      <input type="number" id="val" placeholder="введите сумму..."/>
+      <select id="cur1">
+          <option>USD</option>
+          <option>EUR</option>
+          <option>RUB</option>
+      </select>
+  </div>
+  <div class="convert_block_item">
+      <div class="convert_result">= 00,000</div>
+      <select id="cur2">
+          <option>USD</option>
+          <option>EUR</option>
+          <option>RUB</option>
+      </select>
+  </div>
+
+  <div id="gall">
+    <img src="1.jpg" tabindex="0" border="3"/>		
+    <img src="2.jpg" tabindex="0" border="3"/>	
+    <img src="3.jpg" tabindex="0" border="3" />
+    <img src="4.jpg" tabindex="0" border="3"/>	
+    <div></div>
+    </div>
+    
+    <div class="report">
+      <a href="C:\Users\pasaa\OneDrive\Рабочий стол\мое\КПИ\веб\lab5\LABA5\report.html">Звіт</a>
+    </div>
+    
+
+    <div class="footer">
+      <a href="https://www.facebook.com/campaign/landing.php?&campaign_id=1600506847&extra_1=s%7Cc%7C515922865592%7Ce%7Cfacebook%7C&placement=&creative=515922865592&keyword=facebook&partner_id=googlesem&extra_2=campaignid%3D1600506847%26adgroupid%3D60825662376%26matchtype%3De%26network%3Dg%26source%3Dnotmobile%26search_or_content%3Ds%26device%3Dc%26devicemodel%3D%26adposition%3D%26target%3D%26targetid%3Dkwd-541132862%26loc_physical_ms%3D9061017%26loc_interest_ms%3D%26feeditemid%3D%26param1%3D%26param2%3D&gclid=CjwKCAiA1aiMBhAUEiwACw25MbqB9jD4MDoJfliahmPYj2_SuL83tWsKLTYl2VFS07LP2YwEk2YGSRoC0SIQAvD_BwE" class="flex-item"><img src="img/social-media/facebook.png"/></a>
+      <a href="https://www.instagram.com/" class="flex-item"><img src="img/social-media/instagram.png"/></a>
+      <a href="https://www.linkedin.com/feed/" class="flex-item"><img src="img/social-media/linkedin.png"/></a>
+      <a href="https://www.youtube.com/" class="flex-item"><img src="img/social-media/youtube.png"/></a>     
+  </div>
+    
+</body>
+</html>
